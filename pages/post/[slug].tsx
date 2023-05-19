@@ -46,13 +46,13 @@ function Post({ post }: Props) {
       <Header />
 
       <img
-        className="w-full h-40 object-cover"
+        className="h-40 w-full object-cover"
         src={urlFor(post.mainImage).url()!}
         alt=""
       />
-      <article className="max-w-3xl mx-auto p-5">
-        <h1 className="text-3xl mt-10 mb-3">{post.title}</h1>
-        <h2 className="text-xl font-light text-gray-500 mb-2">
+      <article className="mx-auto max-w-3xl p-5">
+        <h1 className="mb-3 mt-10 text-3xl">{post.title}</h1>
+        <h2 className="mb-2 text-xl font-light text-gray-500">
           {post.description}
         </h2>
         <div className="flex items-center space-x-2">
@@ -61,9 +61,9 @@ function Post({ post }: Props) {
             src={urlFor(post.author.image).url()!}
             alt=""
           />
-          <p className="font-extralight text-sm">
+          <p className="text-sm font-extralight">
             Blog post by{" "}
-            <span className="text-green-600 underline cursor-pointer">
+            <span className="cursor-pointer text-green-600 underline">
               {post.author.name}
             </span>{" "}
             - Published at {new Date(post._createdAt).toLocaleString()}
@@ -77,10 +77,10 @@ function Post({ post }: Props) {
             content={post.body}
             serializers={{
               h1: (props: any) => (
-                <h1 className="text-2xl font-bold my-5" {...props} />
+                <h1 className="my-5 text-2xl font-bold" {...props} />
               ),
               h2: (props: any) => (
-                <h1 className="text-xl font-bold my-5" {...props} />
+                <h1 className="my-5 text-xl font-bold" {...props} />
               ),
               li: ({ children }: any) => (
                 <li className="ml-4 list-disc">{children}</li>
@@ -94,10 +94,10 @@ function Post({ post }: Props) {
           />
         </div>
       </article>
-      <hr className="max-w-lg my-5 mx-auto border border-yellow-500" />
+      <hr className="mx-auto my-5 max-w-lg border border-yellow-500" />
 
       {submitted ? (
-        <div className="flex flex-col p-10 my-10 bg-yellow-500 text-white max-w-2xl mx-auto">
+        <div className="mx-auto my-10 flex max-w-2xl flex-col bg-yellow-500 p-10 text-white">
           <h3 className="text-3xl font-bold">
             Thank you for submitting your comment.
           </h3>
@@ -106,40 +106,40 @@ function Post({ post }: Props) {
       ) : (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col p-5 max-w-2xl mx-auto mb-10"
+          className="mx-auto mb-10 flex max-w-2xl flex-col p-5"
         >
           <h3 className="text-sm text-yellow-500">Enjoyed the article?</h3>
           <h4 className="text-3xl font-bold">Leave a comment below!</h4>
-          <hr className="py-3 mt-2" />
+          <hr className="mt-2 py-3" />
           <input
             {...register("_id")}
             type="hidden"
             name="_id"
             value={post._id}
           />
-          <label className="block mt-5">
+          <label className="mt-5 block">
             <span className="text-gray-700">Name</span>
             <input
               {...register("name", { required: true })}
-              className="shadow border rounded py-2 px-3 form-input mt-1 block w-full ring-yellow-500 outline-none focus:ring-1"
+              className="form-input mt-1 block w-full rounded border px-3 py-2 shadow outline-none ring-yellow-500 focus:ring-1"
               placeholder="Your Name"
               type="text"
             />
           </label>
-          <label className="block mt-5">
+          <label className="mt-5 block">
             <span className="text-gray-700">Email</span>
             <input
               {...register("email", { required: true })}
-              className="shadow border rounded py-2 px-3 form-input mt-1 block w-full ring-yellow-500 outline-none focus:ring-1"
+              className="form-input mt-1 block w-full rounded border px-3 py-2 shadow outline-none ring-yellow-500 focus:ring-1"
               placeholder="Your Email"
               type="email"
             />
           </label>
-          <label className="block mt-5">
+          <label className="mt-5 block">
             <span className="text-gray-700">Comment</span>
             <textarea
               {...register("comment", { required: true })}
-              className="shadow border rounded py-2 px-3 form-textarea mt-1 block w-full ring-yellow-500 outline-none focus:ring-1"
+              className="form-textarea mt-1 block w-full rounded border px-3 py-2 shadow outline-none ring-yellow-500 focus:ring-1"
               placeholder="Your Comment"
               rows={8}
             />
@@ -164,19 +164,20 @@ function Post({ post }: Props) {
 
           <input
             type="submit"
-            className="shadow bg-yellow-600 hover:bg-yellow-700 duration-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded cursor-pointer"
+            className="focus:shadow-outline cursor-pointer rounded bg-yellow-600 px-4 py-2 font-bold text-white shadow duration-500 hover:bg-yellow-700 focus:outline-none"
           />
         </form>
       )}
 
       {/* Comments */}
-      <div className="flex flex-col p-10 my-10 max-w-2xl mx-auto shadow-yellow-500 shadow space-y-2">
+      <div className="mx-auto my-10 flex max-w-2xl flex-col space-y-2 p-10 shadow shadow-yellow-500">
         <h3 className="text-4xl font-medium">Comments</h3>
         <hr className="pb-2" />
         {post.comments.map((comment) => (
           <div key={comment._id}>
             <p>
-              <span className="text-yellow-500">{comment.name}: </span>{comment.comment}
+              <span className="text-yellow-500">{comment.name}: </span>
+              {comment.comment}
             </p>
           </div>
         ))}
