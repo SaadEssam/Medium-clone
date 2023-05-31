@@ -5,6 +5,7 @@ import Header from "../../components/Header";
 import { Post } from "@/typings";
 import PortableText from "react-portable-text";
 import { useForm, SubmitHandler } from "react-hook-form";
+import Head from "next/head";
 
 interface IFormInput {
   _id: string;
@@ -43,6 +44,10 @@ function Post({ post }: Props) {
 
   return (
     <main>
+      <Head>
+        <title>{post.title} | Medium</title>
+        <meta name="description" content={post.description} />
+      </Head>
       <Header />
 
       <img
